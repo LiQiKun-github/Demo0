@@ -9,6 +9,8 @@ public class RPolandExpression {
         System.out.println(eval("1 2 + 3 4 + *") == 21.0);//ok
         System.out.println(eval("+ 1 2") == ERROR);//error
         System.out.println(eval("1 2 +") == 3.0);
+        System.out.println(eval("5 1 5 / - 5 *"));
+        //(5 - (1/5)) *5 =24
 
     }
 
@@ -34,8 +36,15 @@ public class RPolandExpression {
                     case "+":
                         c = a + b;
                         break;
+                    case "-":
+                        c = a - b;
+                        break;
                     case "*":
                         c = a * b;
+                        break;
+                    case "/":
+                        if(b==0)return ERROR;
+                        c = a / b;
                         break;
 
                 }
