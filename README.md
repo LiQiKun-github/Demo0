@@ -35,56 +35,56 @@ public static boolean isNumber(String tok) {
 ```
 - 后缀表达式判断和计算：栈
 
-  ```java
-    public static double eval(List<String> exp) {
-          Stack<Double> S = new Stack<>();
-          for (String tok : exp) {
-              if (isNumber(tok)) {
-                  S.push(Double.parseDouble(tok));
-              } else {
-                  if (S.isEmpty()) {
-                      return ERROR;
-                  }
-                  double b = S.peek();
-                  S.pop();
-                  if (S.isEmpty()) {
-                      return ERROR;
-                  }
-                  double a = S.peek();
-                  S.pop();
-                  double c = 0;
-                  switch (tok) {
-                      case "+":
-                          c = a + b;
-                          break;
-                      case "-":
-                          c = a - b;
-                          break;
-                      case "*":
-                          c = a * b;
-                          break;
-                      case "/":
-                          if (b == 0) return ERROR;
-                          c = a / b;
-                          break;
-  
-                  }
-                  S.push(c);
+```java
+public static double eval(List<String> exp) {
+      Stack<Double> S = new Stack<>();
+      for (String tok : exp) {
+          if (isNumber(tok)) {
+              S.push(Double.parseDouble(tok));
+          } else {
+              if (S.isEmpty()) {
+                  return ERROR;
               }
-  
+              double b = S.peek();
+              S.pop();
+              if (S.isEmpty()) {
+                  return ERROR;
+              }
+              double a = S.peek();
+              S.pop();
+              double c = 0;
+              switch (tok) {
+                  case "+":
+                      c = a + b;
+                      break;
+                  case "-":
+                      c = a - b;
+                      break;
+                  case "*":
+                      c = a * b;
+                      break;
+                  case "/":
+                      if (b == 0) return ERROR;
+                      c = a / b;
+                      break;
+
+              }
+              S.push(c);
           }
-          return S.size() != 1 ? ERROR : S.peek();
+
       }
-  
-      public static double eval(String[] exp) {
-          return eval(Arrays.asList(exp));
-      }
-  
-      public static double eval(String s) {
-          return eval(s.split("\\s+"));
-  
-      }
-  ```
+      return S.size() != 1 ? ERROR : S.peek();
+  }
+
+  public static double eval(String[] exp) {
+      return eval(Arrays.asList(exp));
+  }
+
+  public static double eval(String s) {
+      return eval(s.split("\\s+"));
+
+  }
+```
 
   
 
