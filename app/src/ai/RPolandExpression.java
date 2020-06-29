@@ -1,5 +1,7 @@
 package ai;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Stack;
 
 public class RPolandExpression {
@@ -11,12 +13,12 @@ public class RPolandExpression {
         System.out.println(eval("1 2 +") == 3.0);
         System.out.println(eval("5 1 5 / - 5 *"));
         //(5 - (1/5)) *5 =24
-
+        System.out.println(eval("5 1 5 / - 5 *".split("\\s+")));
+        System.out.println(eval(Arrays.asList("5 1 5 / - 5 *".split("\\s+"))));
     }
 
-    private static double eval(String s) {
+    public static double eval(List<String> exp) {
         Stack<Double> S = new Stack<>();
-        String[] exp = s.split("\\s+");
         for (String tok : exp) {
             if (isNumber(tok)) {
                 S.push(Double.parseDouble(tok));
@@ -43,7 +45,7 @@ public class RPolandExpression {
                         c = a * b;
                         break;
                     case "/":
-                        if(b==0)return ERROR;
+                        if (b == 0) return ERROR;
                         c = a / b;
                         break;
 
@@ -55,7 +57,17 @@ public class RPolandExpression {
         return S.size() != 1 ? ERROR : S.peek();
     }
 
-    private static boolean isNumber(String tok) {
+    public static double eval(String[] exp) {
+        return eval(Arrays.asList(exp));
+    }
+
+    public static double eval(String s) {
+
+        return eval(s.split("\\s+"));
+
+    }
+
+    public static boolean isNumber(String tok) {
         try {
             Double.parseDouble(tok);
             return true;
